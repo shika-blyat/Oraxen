@@ -1,0 +1,47 @@
+# MISCELLANEOUS
+
+durability:
+  enabled: true
+
+repair:
+  enabled: true
+  oraxen_durability_only: false
+
+commands:
+  enabled: true
+
+potioneffects:
+  enabled: true
+
+block:
+  enabled: true
+
+hat:
+  enabled: true
+
+
+# COMBAT
+
+thor:
+  enabled: true
+
+lifeleech:
+  enabled: true
+
+
+# FARMING
+
+bigmining:
+  enabled: true
+
+smelting:
+  enabled: true
+
+bottledexp:
+  enabled: true
+  durability_cost: 10
+
+bedrockbreak:
+  enabled: true
+  disable_on_first_layer: false # Set it on true to avoid player breaking the ground ...completely
+  durability_cost: 500

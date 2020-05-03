@@ -13,6 +13,7 @@ import io.th0rgal.oraxen.mechanics.provided.potioneffects.PotionEffectsMechanicF
 import io.th0rgal.oraxen.mechanics.provided.repair.RepairMechanicFactory;
 import io.th0rgal.oraxen.mechanics.provided.smelting.SmeltingMechanicFactory;
 import io.th0rgal.oraxen.mechanics.provided.thor.ThorMechanicFactory;
+import io.th0rgal.oraxen.mechanics.provided.freeze.FreezeMechanicFactory;
 import io.th0rgal.oraxen.settings.ResourcesManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -30,34 +31,37 @@ public class MechanicsManager {
     private static final List<Listener> MECHANICS_LISTENERS = new ArrayList<>();
 
     public static void registerNativeMechanics() {
-        //misc
+        // misc
         registerMechanicFactory("durability", DurabilityMechanicFactory.class);
         registerMechanicFactory("repair", RepairMechanicFactory.class);
         registerMechanicFactory("commands", CommandsMechanicFactory.class);
         registerMechanicFactory("potioneffects", PotionEffectsMechanicFactory.class);
         registerMechanicFactory("block", BlockMechanicFactory.class);
         registerMechanicFactory("hat", HatMechanicFactory.class);
-
-        //combat
+        registerMechanicFactory("freeze", FreezeMechanicFactory.class);
+        // combat
         registerMechanicFactory("thor", ThorMechanicFactory.class);
         registerMechanicFactory("lifeleech", LifeLeechMechanicFactory.class);
 
-        //farming
+        // farming
         registerMechanicFactory("bigmining", BigMiningMechanicFactory.class);
         registerMechanicFactory("smelting", SmeltingMechanicFactory.class);
         registerMechanicFactory("bottledexp", BottledExpMechanicFactory.class);
         registerMechanicFactory("bedrockbreak", BedrockBreakMechanicFactory.class);
     }
 
-    public static void registerMechanicFactory(String mechanicID, Class<? extends MechanicFactory> mechanicFactoryClass) {
+    public static void registerMechanicFactory(String mechanicID,
+            Class<? extends MechanicFactory> mechanicFactoryClass) {
         YamlConfiguration mechanicsConfig = new ResourcesManager(OraxenPlugin.get()).getMechanics();
         if (mechanicsConfig.getKeys(false).contains(mechanicID)) {
             ConfigurationSection factorySection = mechanicsConfig.getConfigurationSection(mechanicID);
             if (factorySection.getBoolean("enabled"))
                 try {
-                    MechanicFactory factory = mechanicFactoryClass.getConstructor(ConfigurationSection.class).newInstance(factorySection);
+                    MechanicFactory factory = mechanicFactoryClass.getConstructor(ConfigurationSection.class)
+                            .newInstance(factorySection);
                     FACTORIES_BY_MECHANIC_ID.put(mechanicID, factory);
-                } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException
+                        | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
         }

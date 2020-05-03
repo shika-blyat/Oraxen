@@ -31,6 +31,8 @@ compileJava {
     options.fork = true
     options.forkOptions.executable = 'javac'
     options.encoding = "UTF-8"
+    /*options.compilerArgs << "-s"
+    options.compilerArgs << "C:/Users/abdel/Documents/Java/spigot-server"*/
 }
 
 dependencies {
